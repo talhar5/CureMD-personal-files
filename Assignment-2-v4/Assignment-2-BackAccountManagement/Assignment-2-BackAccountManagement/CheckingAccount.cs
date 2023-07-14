@@ -23,7 +23,7 @@ namespace Assignment_2_BackAccountManagement
             }
             AccountBalance -= amount;
             Console.WriteLine("Thanks for using Meezan");
-            GetTransactions();
+            AddTransaction("Withdraw", amount);
 
         }
 

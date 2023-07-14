@@ -14,6 +14,16 @@ namespace Assignment_2_BackAccountManagement
             this.amount = amount;
         }
         private string type;
+        public string Type
+        {
+            get { return type; }
+            set { _ = value; }
+        }
         private float amount;
+        public float Amount
+        {
+            get { return amount; }
+            set { _ = value; }
+        }
     }
 }

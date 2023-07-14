@@ -7,6 +7,7 @@ namespace Assignment_2_BackAccountManagement
         static void Main(string[] args)
         {
             Bank MeezanBank = new Bank(); // creating  a bank
+            Console.WriteLine();
 
             SavingsAccount talhaAccount = new SavingsAccount("PK1122", "Talha Razzaq", 1000, 1.7f); // creating a saving account
             CheckingAccount ashirAccount = new CheckingAccount("PK0105", "Muhammad Ashir", 2000); // creating a checking account
@@ -16,10 +17,13 @@ namespace Assignment_2_BackAccountManagement
 
             MeezanBank.DepositToAccount("PK0105", 200);
             MeezanBank.DepositToAccount("PK1122", 150);
+            MeezanBank.DepositToAccount("PK1122", 150);
+            MeezanBank.DepositToAccount("PK1122", 150);
             Console.WriteLine();
             MeezanBank.WithdrawFromAccount("PK0105", 9000);
             MeezanBank.WithdrawFromAccount("PK1122", 90);
-
+            Console.WriteLine();
+            talhaAccount.ShowTransactionHistory();
         }
     }
 

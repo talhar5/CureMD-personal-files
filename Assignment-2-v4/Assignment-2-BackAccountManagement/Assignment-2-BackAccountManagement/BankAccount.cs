@@ -80,6 +80,15 @@ namespace Assignment_2_BackAccountManagement
 
         public abstract void DisplayAccountInfo();
 
+        public void ShowTransactionHistory()
+        {
+            Console.WriteLine("----Transaction History----");
+            foreach (Transaction transaction in transactionsHistory)
+            {
+                Console.WriteLine($"Type: {transaction.Type}, Amount: ${transaction.Amount}");
+            }
+        }
+
 
     }
 

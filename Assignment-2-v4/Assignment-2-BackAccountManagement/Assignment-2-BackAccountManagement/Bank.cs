@@ -6,16 +6,19 @@ namespace Assignment_2_BackAccountManagement
     // Aggregation: Bank class is the aggregate of BankAccount objects
     // this is not inheritance(is-a), this is association(has-a)
     // aggregation: weak bounding.
-
     class Bank
     {
         // Constructor
         public Bank()
         {
             bankAccounts = new Dictionary<string, BankAccount>();
+            Console.WriteLine("A new Bank has been created.");
         }
+
         // props
-        public Dictionary<string, BankAccount> bankAccounts;
+
+        // Encapsulation: using private keyword to hide from other classes
+        private Dictionary<string, BankAccount> bankAccounts;
 
         //methods
         public void AddAccount(BankAccount account)
