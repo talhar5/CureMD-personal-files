@@ -1,29 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment_2_BackAccountManagement
 {
+    // --> Demonstrating Inheritance
+    // 'is-a' relation: strong bounding: inheritance
+    // this is a base class for all type of bank accounts
+    // inheriting IBankAccount interface
+    // --> Demonstrating Abstraction
+    // creating an abstract class demonstrating Abstraction
+    // default access type: internal
     abstract class BankAccount : IBankAccount
     {
         // constructor
+        // cannot be private, called when an object of bank account is created
         public BankAccount(string number, string name, float balance)
         {
+            // initializing variables when a bank account is created
             accountNumber = number;
             accountBalance = balance;
             accountHolderName = name;
             transactionsHistory = new List<Transaction>();
+            accountsCount++;
         }
 
         // fields
-        private string accountNumber;
+
+        // --> Demonstrating Encapsulation
+        // hiding sensitive data
+        // using private access specifier so that only this class can access the variables
+        // using getter and setter methods to access and update private variables
+        private readonly string accountNumber;
         public string AccountNumber
         {
             get { return accountNumber; }
         }
-        private string accountHolderName;
+        private readonly string accountHolderName;
         public string AccountHolderName
         {
             get { return accountHolderName; }
@@ -34,62 +46,78 @@ namespace Assignment_2_BackAccountManagement
             get { return accountBalance; }
             set { accountBalance = value; }
         }
-        private List<Transaction> transactionsHistory;
+        // created a static variable to track the total number of bank accounts
+        // static variables are shared with all objects
+        private static int accountsCount = 0;
+        public static int AccountCount
+        {
+            get { return accountsCount; }
+            set { _ = value; }
+        }
+        private readonly List<Transaction> transactionsHistory; // this list will store Transaction objects
 
         // methods
-        public virtual void Deposit(float amount)
-        {
-            accountBalance += amount;
-            Console.WriteLine("Funds have been deposited");
-            AddTransaction("Deposit", amount);
-        }
-        public virtual void Withdraw(float amount)
-        {
-            if (accountBalance < amount)
-            {
-                Console.WriteLine("Insufficient Balance");
-                return;
-            }
-            accountBalance -= amount;
-            Console.WriteLine("Amount has been deposited.");
-            AddTransaction("Withdraw", amount);
-        }
+        // --> Demonstrating Polymorphism
+        // creating virtual and abstract methods that can be overriden in child classes
+        // run-time compiler decides which method to run
+        // cannot use virtual with the static, abstract, private or override modifiers
+        public abstract void Deposit(float amount);
+        public abstract void Withdraw(float amount);
+        public abstract void BankCharges(float amount);
 
+
+        // Abstract Methods: Demonstrating Abstraction
+        // signatures only, connot have method body.
+        // must be overriden in child classes.
         public abstract float CalculateInterest();
-
-        public string getAccountNumber()
-        {
-            return accountNumber;
-        }
-        public string getAccountName()
-        {
-            return accountHolderName;
-        }
-        public float getBalance()
-        {
-            return accountBalance;
-        }
-        public List<Transaction> GetTransactions()
-        {
-            return transactionsHistory;
-        }
-        public void AddTransaction(string type, float amount)
-        {
-            transactionsHistory.Add(new Transaction(type, amount));
-        }
-
         public abstract void DisplayAccountInfo();
 
-        public void ShowTransactionHistory()
+        public void AddTransaction(TransactionType type, float amount)
         {
-            Console.WriteLine("----Transaction History----");
-            foreach (Transaction transaction in transactionsHistory)
-            {
-                Console.WriteLine($"Type: {transaction.Type}, Amount: ${transaction.Amount}");
-            }
+            // adds Transaction object to the transactonHistory list
+            transactionsHistory.Insert(0, new Transaction(type, amount));
         }
 
+        // --> Demonstrating Polymorphism
+        // overloading: same name methods with different number or type of arguments
+        // static polymorphism: compile-time polymorphism
 
+        // Prints transaction history to the screen
+        public void ShowTransactionHistory()
+        {
+            // it will show last 5 transaction
+            Console.WriteLine("----Transaction History----\n");
+            int count = transactionsHistory.Count >= 5 ? 5 : transactionsHistory.Count - 1;
+            for (int i = 0; i <= count; i++)
+            {
+                Console.WriteLine(transactionsHistory[i].Date);
+                Console.WriteLine("Type: {0}, Amount: ${1}\n", transactionsHistory[i].Type, transactionsHistory[i].Amount);
+            }
+        }
+        // method to show desired number of transactions
+        public void ShowTransactionHistory(int N)
+        {
+            Console.WriteLine("----Transaction History----\n");
+            if (transactionsHistory.Count >= N)
+            {
+                for (int i = 0; i < N; i++)
+                {
+                    Console.WriteLine("Type: {0}, Amount: ${1}", transactionsHistory[i].Type, transactionsHistory[i].Amount);
+                }
+            }
+            else if (transactionsHistory.Count >= 1)
+            {
+                foreach (Transaction transaction in transactionsHistory)
+                {
+                    Console.WriteLine($"Type: {transaction.Type}, Amount: ${transaction.Amount}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Transaction found!");
+            }
+
+        }
     }
 
 }
