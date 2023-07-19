@@ -1,0 +1,148 @@
+/* importing fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;600;700&display=swap');
+
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: rgb(32, 32, 32);
+}
+
+/* navbar stylings */
+.main-navbar {
+    background-color: rgba(0, 0, 0, 0.616);
+    padding: 0.35rem;
+    font-family: 'Baloo Bhai 2', cursive;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.main-navbar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.main-navbar ul li {
+    padding: 0.25rem;
+}
+.main-navbar .logo {
+    padding: 0rem 1.55rem;
+}
+
+/* Welcome Section */
+.welcome-section {
+    position: relative;
+}
+.welcome-section img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    position: relative;
+    z-index: -2;
+}
+.img-overlay {
+    background-color: rgba(0, 0, 0, 0.623);
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+.welcome-msg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem
+}
+.welcome-msg > h3 {
+    text-align: center;
+    font-size: 2.4rem;
+}
+.welcome-msg > div > p {
+    text-align: center;
+    font-size: 1.1rem;
+}
+.welcome-msg > button {
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    z-index: 5;
+}
+.welcome-msg > button:hover {
+    
+    background-color: maroon;
+    color: red;
+}
+
+/* Our Services stylings */
+.services-section {
+    text-align: center;
+    font-size: 1.4rem;
+    padding: 1rem;
+    background-color: white;
+}
+.services-section > h1 {
+    margin: 1rem;
+    color: maroon;
+}
+
+.services-section > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.services-section > div > div {
+    border: 2px solid maroon;
+    background-color: rgb(255, 239, 209);
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+    padding: 1rem;
+}
+
+.services-section > div > div h3 {
+    padding: 0.35rem;
+    color: maroon;
+}
+.services-section > div > div img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 99rem;
+}
+
+/* Contact Us stylings */
+.contact-section {
+    background-color: white;
+}
+.contact-section > h1 {
+    text-align: center;
+}
+
+
+/* Footer stylings */
+footer {
+    background-color: maroon;
+    color: white;
+    padding: 0.85rem;
+    text-align: center;
+}
+/* utility classes */
+.h, .p {
+    /* font for paragraph and heading */
+    font-family: 'Bree Serif', serif;
+}
