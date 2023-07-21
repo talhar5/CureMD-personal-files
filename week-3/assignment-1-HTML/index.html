@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/styles.css">
+    <script src="./src/app.js"></script>
     <title>Foodway</title>
 </head>
 
@@ -87,18 +88,36 @@
                 </div>
             </div>
         </section>
+        <section class="banner-section">
+            <div class="left-half">
+                <h1 class="h">Delicious Food Gallery</h1>
+                <p class="p">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error dolore debitis maxime.
+                    Ullam aliquid dolore dignissimos. Soluta, eum. Ratione expedita porro ipsum eligendi unde labore
+                    nisi provident repellendus ea totam.</p>
+                <div>
+                    Image from <span><a href="https://unsplash.com" target="_blank">Unsplash</a></span>
+                </div>
+            </div>
+            <div class="right-half">
+                <div class="banner">
+                    <div class="left-btn btn">&larr;</div>
+                    <div id="img-container" class="img img1"></div>
+                    <div class="right-btn btn">&rarr;</div>
+                </div>
+            </div>
+        </section>
 
         <!-- Our Manu Section -->
         <section class="menu-section">
             <h1 class="h">
                 Our Menu
             </h1>
-            <table>
+            <table class="menu-table">
                 <tr>
-                    <th>#</th>
-                    <th>Dish</th>
-                    <th>Serving</th>
-                    <th>Price</th>
+                    <th class="sr">#</th>
+                    <th class="dish">Dish</th>
+                    <th class="serving">Serving</th>
+                    <th class="price">Price</th>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -125,6 +144,8 @@
                     <td>$1.60</td>
                 </tr>
             </table>
+            <div style="width: 80%;" id="btns-container">
+            </div>
         </section>
 
         <!-- Newsletter Section -->
@@ -148,8 +169,14 @@
             <h1 class="h">Contact Us</h1>
             <form action="">
                 <div class="row-1">
-                    <input id="name" name="name" type="text" placeholder="Name">
-                    <input id="email" name="email" type="email" placeholder="Email">
+                    <div>
+                        <input class="" id="name" name="name" type="text" placeholder="Name">
+                        <div class="error name-error">Required</div>
+                    </div>
+                    <div>
+                        <input id="email" name="email" type="email" placeholder="Email">
+                        <div class="error email-error">Required</div>
+                    </div>
                 </div>
                 <div class="row-2">
                     <textarea name="message" id="message" placeholder="Comment" rows="5"></textarea>
