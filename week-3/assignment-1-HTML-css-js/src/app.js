@@ -14,7 +14,7 @@ function main() {
 
         }, false)
     })
-
+ 
     // task - 2: Switch images with buttons
     const imagesArr = [
         // more images can be added in this array
@@ -41,6 +41,8 @@ function main() {
         imgContainer.innerHTML = imagesArr[index];
     }
 
+
+    //===================================================================================
     // Interactive table
     const tableElem = document.querySelector('.menu-table');
     const btnsContainer = document.getElementById('btns-container');
@@ -112,9 +114,9 @@ function main() {
         let elem = document.createElement('tr');
         elem.innerHTML = `
                         <td>${tableRows + 1}</td>
-                        <td><input type="text" id="dish-name" class="input-field"></td>
-                        <td><input type="number" id="serving" class="input-field"></td>
-                        <td><input type="number" id="price" class="input-field"></td>
+                        <td><input type="text" id="dish-name" class="input-field" placeholder="Dish Name"></td>
+                        <td><input type="number" id="serving" class="input-field" placeholder="Serving"></td>
+                        <td><input type="number" id="price" class="input-field" placeholder="Price"></td>
                     `;
         elem.setAttribute('id', 'editing');
         parentElem.appendChild(elem);
@@ -124,9 +126,10 @@ function main() {
     // form validations
     const nameElem = document.getElementById('name');
     const emailElem = document.getElementById('email');
-    const messageElem = document.getElementById('message');
+    const commentElem = document.getElementById('comment');
     const errorName = document.querySelector('.name-error');
     const errorEmail = document.querySelector('.email-error');
+    const errorComment = document.querySelector('.comment-error');
     
     // validate name
     let isNameTouched = false;
@@ -166,5 +169,31 @@ function main() {
                 errorEmail.style.visibility = 'hidden';
             }
         }
+    }
+    // validate comment
+    let isCommentTouched = false;
+    commentElem.onblur = (e) => {
+        isCommentTouched = true;
+        if(countWords(e.target.value) < 5){
+            errorComment.style.visibility = 'visible';
+        } else {
+            errorComment.style.visibility = 'hidden';
+        }
+    }
+    commentElem.oninput = (e) => {
+        if(isCommentTouched){
+            if(countWords(e.target.value) < 5){
+                errorComment.style.visibility = 'visible';
+            } else {
+                errorComment.style.visibility = 'hidden';
+            }
+        }
+    }
+
+
+    // function to count words in a string
+    function countWords(str){
+        if(str.length == 0) return 0;
+        return str.trim().split(/\s+/).length;
     }
 }   

@@ -424,7 +424,8 @@ header {
 
 .contact-section input[type="submit"] {
   background-color: white;
-  border: 1px solid rgb(158, 158, 158);
+  border: 1px solid maroon;
+  color: maroon;
   padding: 0.5rem;
   border-radius: 0.25rem;
   font-size: 1.125rem;
@@ -441,9 +442,10 @@ header {
   left: 4px;
   color: red;
   font-size: 0.8rem;
-}
-.name-error {
   visibility: hidden;
+}
+.comment-error {
+  float: left;
 }
 
 /* Footer stylings */
