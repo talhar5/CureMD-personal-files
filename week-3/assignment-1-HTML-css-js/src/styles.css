@@ -377,6 +377,9 @@ header {
   width: 40%;
   margin: 1rem;
 }
+.contact-section .row-1 div {
+  width: 47%;
+}
 .contact-section .row-1 input {
   padding: 0.5rem 1rem;
   margin: 0.5rem 0rem;
@@ -384,7 +387,7 @@ header {
   border: 1px solid rgb(211, 211, 211);
   line-height: 1.7rem;
   font-size: 1.125rem;
-  width: 48%;
+  width: 150px;
 }
 .contact-section .row-2 textarea {
   padding: 0.5rem 1rem;
