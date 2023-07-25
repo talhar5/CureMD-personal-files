@@ -85,7 +85,7 @@ $(document).ready(() => {
     }
     function updateStats(){
         $('.stats').text(
-            `Showing ${startIndex + 1}-${startIndex + 10} out of ${totalPosts}`
+            `Showing ${startIndex + 1}-${startIndex + 10} posts out of ${totalPosts} posts`
         );
     }
 });
