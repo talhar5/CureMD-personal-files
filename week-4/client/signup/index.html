@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Sign Up</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>Blog Posts</li>
+            <li>Home</li>
+            <li>About</li>
+        </ul>
+    </nav>
+    <!-- signup form -->
+    <section class="signup">
+        <form>
+            <div class="form-field">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName">
+            </div>
+            <div class="form-field">
+                <label for="lastName">Last Name</label>
+                <input id="lastName" type="text">
+            </div>
+            <div class="form-field">
+                <label for="email">Email</label>
+                <input id="email" type="email">
+            </div>
+            <div class="form-field">
+                <label for="password">Password</label>
+                <input type="password" id="password">
+            </div>
+            <button type="submit" id="signupBtn">Sign Up</button>
+        </form>
+        <div class="signup-error error"></div>
+        <div class="msg"></div>
+        <div>
+            Already have an account? <a href="../login/index.html">Login</a>
+        </div>
+        
+    </section>
+
+    <!-- script -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
