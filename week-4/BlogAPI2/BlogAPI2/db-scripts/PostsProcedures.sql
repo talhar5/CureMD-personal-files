@@ -41,8 +41,8 @@ GO
 DROP PROCEDURE IF EXISTS InsertPost;
 GO
 CREATE PROCEDURE InsertPost
-	@Title VARCHAR(50),
-	@PostBody VARCHAR(1000),
+	@Title VARCHAR(100),
+	@PostBody TEXT,
 	@CategoryId INT,
 	@UserId INT
 AS
@@ -70,8 +70,8 @@ DROP PROCEDURE IF EXISTS UpdatePost;
 GO
 CREATE PROCEDURE UpdatePost
 	@PostId INT,
-	@Title VARCHAR(50),
-	@PostBody VARCHAR(1000),
+	@Title VARCHAR(100),
+	@PostBody TEXT,
 	@CategoryId INT
 AS
 BEGIN
@@ -81,4 +81,3 @@ BEGIN
 END
 GO
 
--- to get posts by user

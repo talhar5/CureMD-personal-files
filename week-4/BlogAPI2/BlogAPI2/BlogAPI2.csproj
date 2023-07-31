@@ -190,6 +190,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BusinessLayer\BL.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DB-Layer\DBLayer.cs" />
@@ -199,6 +201,7 @@
     <Compile Include="Middlewares\AuthorizationModule.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CommentDto.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostDto.cs" />
     <Compile Include="Models\User.cs" />

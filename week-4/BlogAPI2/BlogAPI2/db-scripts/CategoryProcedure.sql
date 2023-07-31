@@ -14,7 +14,7 @@ BEGIN
 END
 GO
 
--- to inset a new category
+-- to insert a new category
 DROP PROCEDURE IF EXISTS InsertCategory;
 GO
 CREATE PROCEDURE InsertCategory

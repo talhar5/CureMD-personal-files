@@ -12,13 +12,15 @@ using System.Diagnostics;
 
 namespace BlogAPI2.Controllers
 {
-    [RoutePrefix("api/v1")]
+    [RoutePrefix("api/v1/posts")]
 
     public class PostsController : ApiController
     {
-        BL bl = new BL();
+        private readonly BL bl = new BL();
+
+        // --> to get All posts
         [HttpGet]
-        [Route("posts")]
+        [Route("")]
         public IHttpActionResult GetAllPosts()
         {
             try
@@ -31,8 +33,9 @@ namespace BlogAPI2.Controllers
             }
         }
 
+        // --> to create a new post
         [HttpPost]
-        [Route("posts/create")]
+        [Route("")]
         public IHttpActionResult CreateNewPost([FromBody] PostDto postDto)
         {
             try
@@ -74,6 +77,30 @@ namespace BlogAPI2.Controllers
             } catch(Exception ex)
             {
                 return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        // --> to delete a post
+        [HttpDelete]
+        [Route("{PostId}")]
+        public IHttpActionResult DeletePost(int PostId)
+        {
+            try
+            {
+                bool result = bl.DeletePost(PostId);
+                if (result)
+                {
+                    return Ok("Post has been deleted");
+                } else
+                {
+                    return Content(HttpStatusCode.InternalServerError, "Cound not delete the post");
+
+                }
+            }
+            catch(Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, ex);
+
             }
         }
     }

@@ -23,7 +23,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'Categories')
 	BEGIN
 		CREATE TABLE Categories(
 			CategoryId INT IDENTITY(1, 1) PRIMARY KEY,
-			CategoryName VARCHAR(20) NOT NULL
+			CategoryName VARCHAR(30) NOT NULL
 		);
 		PRINT 'A new Categories Table has been created';
 	END
@@ -34,9 +34,9 @@ IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'Users')
 	BEGIN
 		CREATE TABLE Users (
 			UserId INT IDENTITY(1, 1) PRIMARY KEY,
-			FirstName VARCHAR(20) NOT NULL,
-			LastName VARCHAR(20) NOT NULL,
-			Email VARCHAR(30) NOT NULL UNIQUE,
+			FirstName VARCHAR(30) NOT NULL,
+			LastName VARCHAR(30) NOT NULL,
+			Email VARCHAR(50) NOT NULL UNIQUE,
 			PasswordHash VARBINARY(MAX) NOT NULL,
 			PasswordSalt VARBINARY(MAX) NOT NULL,
 			JoinedOn DATETIME NOT NULL DEFAULT GETDATE()
@@ -48,8 +48,8 @@ IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'Users')
 	BEGIN
 		CREATE TABLE Posts(
 			PostId INT IDENTITY(1, 1) PRIMARY KEY,
-			Title VARCHAR(30) NOT NULL,
-			PostBody VARCHAR(255) NOT NULL,
+			Title VARCHAR(100) NOT NULL,
+			PostBody TEXT NOT NULL,
 			UserId INT NOT NULL,
 			FOREIGN KEY (UserId) REFERENCES Users(UserId),
 			CategoryId INT NOT NULL,
@@ -63,7 +63,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'Users')
 	BEGIN
 		CREATE TABLE Comments(
 			CommentId INT IDENTITY(1, 1) PRIMARY KEY,
-			CommentBody VARCHAR(100) NOT NULL,
+			CommentBody VARCHAR(500) NOT NULL,
 			UserId INT NOT NULL,
 			FOREIGN KEY (UserId) REFERENCES Users(UserId),
 			PostId INT NOT NULL,

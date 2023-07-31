@@ -22,7 +22,7 @@ GO
  CREATE PROCEDURE InsertComment
 	@PostId INT,
 	@UserId INT,
-	@CommentBody VARCHAR(255)
+	@CommentBody VARCHAR(500)
 AS
 BEGIN
 	INSERT INTO Comments(CommentBody, UserId, PostId)

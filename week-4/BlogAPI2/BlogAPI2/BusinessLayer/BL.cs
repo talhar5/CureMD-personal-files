@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using BlogAPI2.DB_Layer;
-using System.Data;
+﻿using BlogAPI2.DB_Layer;
 using BlogAPI2.Models;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
+using System.Text;
 using System.Web.Configuration;
 
 
@@ -34,7 +33,8 @@ namespace BlogAPI2.BusinessLayer
                 user.PasswordSalt = passwordSalt;
                 string response = dl.InsertNewUser(user);
                 return response;
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception("An exception of type " + ex.GetType().ToString()
                    + " is encountered in InsertUser due to "
@@ -46,7 +46,7 @@ namespace BlogAPI2.BusinessLayer
         {
             return dl.IsRegistered(email);
         }
-        
+
         // to get user by email
         public User GetUserByEmail(string email)
         {
@@ -58,16 +58,17 @@ namespace BlogAPI2.BusinessLayer
                 user.PasswordHash = (byte[])table.Rows[0]["PasswordHash"];
                 user.PasswordSalt = (byte[])table.Rows[0]["PasswordSalt"];
                 user.Id = Convert.ToInt32(table.Rows[0]["UserId"]);
-                for(int i = 0; i < user.PasswordHash.Length; i++)
+                for (int i = 0; i < user.PasswordHash.Length; i++)
                 {
                     Debug.Write(" " + user.PasswordHash[i]);
                 }
                 user.FirstName = table.Rows[0]["FirstName"].ToString();
                 user.LastName = table.Rows[0]["LastName"].ToString();
                 return user;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                if(ex is IndexOutOfRangeException)
+                if (ex is IndexOutOfRangeException)
                 {
                     return null;
                 }
@@ -77,15 +78,20 @@ namespace BlogAPI2.BusinessLayer
             }
         }
 
+
+        //===============================================
+        // POSTS SERVICES
+
+        // --> to get all posts
         public List<Post> GetAllPosts()
         {
             try
             {
                 List<Post> postsList = new List<Post>();
                 DataTable table = dl.GetAllPosts();
-                if(table != null && table.Rows.Count > 0)
+                if (table != null && table.Rows.Count > 0)
                 {
-                    foreach(DataRow dataRow in table.Rows)
+                    foreach (DataRow dataRow in table.Rows)
                     {
                         Post post = new Post();
                         post.Id = Convert.ToInt32(dataRow["PostId"]);
@@ -101,7 +107,8 @@ namespace BlogAPI2.BusinessLayer
                 }
 
                 return postsList;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception("An exception of type " + ex.GetType().ToString()
                    + " is encountered in GetAllUsers due to "
@@ -109,16 +116,32 @@ namespace BlogAPI2.BusinessLayer
             }
         }
 
+        // --> to add a new post
         public bool AddPost(Post post)
         {
             try
             {
                 return dl.InsertPost(post);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception("An exception of type " + ex.GetType().ToString()
                   + " is encountered in InsertPost due to "
                   + ex.Message, ex.InnerException);
+            }
+        }
+
+        // --> to delete a post
+        public bool DeletePost(int PostId)
+        {
+            try
+            {
+                return dl.DeletePost(PostId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An exception of type {ex.GetType()} is encountered in bl.DeletePost" +
+                    $"due to {ex.Message}, {ex.InnerException}");
             }
         }
 
@@ -135,7 +158,7 @@ namespace BlogAPI2.BusinessLayer
 
         public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
-            using(var hmac = new HMACSHA512(passwordSalt))
+            using (var hmac = new HMACSHA512(passwordSalt))
             {
                 var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
                 return computedHash.SequenceEqual(passwordHash);
@@ -158,6 +181,109 @@ namespace BlogAPI2.BusinessLayer
                 );
             string jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
+        }
+
+        //=============================================
+        // COMMENTS SERVICES
+
+        // --> to get comments on a post
+        public List<Comment> GetComments(int PostId)
+        {
+            try
+            {
+                List<Comment> commentsList = new List<Comment>();
+
+                DataTable data = dl.GetCommentsByPostId(PostId);
+
+                foreach (DataRow row in data.Rows)
+                {
+                    Comment comment = new Comment();
+                    comment.Id = Convert.ToInt32(row["CommentId"]);
+                    comment.Text = row["CommentBody"].ToString();
+                    comment.User.Id = Convert.ToInt32(row["UserId"]);
+                    comment.Post.Id = Convert.ToInt32(row["PostId"]);
+                    comment.User.FirstName = row["FirstName"].ToString();
+                    comment.User.LastName = row["LastName"].ToString();
+                    commentsList.Add(comment);
+                }
+
+                return commentsList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An exception of type {ex.GetType()} is encountered in bl.GetComments" +
+                    $"due to {ex.Message}, {ex.InnerException}");
+            }
+        }
+
+        // --> to insert a comment on a post
+        public bool InsertComment(Comment comment)
+        {
+            try
+            {
+                return dl.InsertComment(comment);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An exception of type {ex.GetType()} is encountered in bl.InsertComment" +
+                    $"due to {ex.Message}, {ex.InnerException}");
+            }
+        }
+
+        // --> to delete a comment
+        public bool DeleteComment(int CommentId)
+        {
+            try
+            {
+                return dl.DeleteComment(CommentId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An exception of type {ex.GetType()} is encountered in bl.DeleteComment" +
+                    $"due to {ex.Message}, {ex.InnerException}");
+            }
+        }
+
+        //=============================================
+        // CATEGORY SERVICES
+
+        // --> to get list of all categories
+        public List<Category> GetAllCategories()
+        {
+            try
+            {
+                List<Category> categoriesList = new List<Category>();
+
+                DataTable data = dl.GetAllCategories();
+                foreach (DataRow row in data.Rows)
+                {
+                    Category category = new Category();
+                    category.Id = Convert.ToInt32(row["CategoryId"]);
+                    category.Name = row["CategoryName"].ToString();
+                    categoriesList.Add(category);
+                }
+
+                return categoriesList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An exception of type {ex.GetType()} is encountered in bl.GetAllCategories" +
+                    $"due to {ex.Message}, {ex.InnerException}");
+            }
+        }
+
+        // --> to insert a category
+        public bool InsertCategory(Category category)
+        {
+            try
+            {
+                return dl.InsertCategory(category);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An exception of type {ex.GetType()} is encountered in bl.InsertCategory" +
+                    $"due to {ex.Message}, {ex.InnerException}");
+            }
         }
     }
 

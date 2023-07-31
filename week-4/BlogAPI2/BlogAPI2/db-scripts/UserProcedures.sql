@@ -16,7 +16,7 @@ GO
 DROP PROCEDURE IF EXISTS GetUserByEmail;
 Go
 CREATE PROCEDURE GetUserByEmail
-	@Email VARCHAR(30)
+	@Email VARCHAR(50)
 AS
 BEGIN
 	SELECT *
@@ -42,9 +42,9 @@ GO
 DROP PROCEDURE IF EXISTS InsertUser
 GO
 CREATE PROCEDURE InsertUser
-	@FirstName VARCHAR(20),
-	@LastName VARCHAR(20),
-	@Email VARCHAR(30),
+	@FirstName VARCHAR(30),
+	@LastName VARCHAR(30),
+	@Email VARCHAR(50),
 	@PasswordHash VARBINARY(MAX),
 	@PasswordSalt VARBINARY(MAX),
 
@@ -63,7 +63,7 @@ GO
 DROP PROCEDURE IF EXISTS CheckUserByEmail
 GO
 CREATE PROCEDURE CheckUserByEmail
-	@Email VARCHAR(30),
+	@Email VARCHAR(50),
 	@IsRegistered BIT OUTPUT
 AS
 BEGIN
